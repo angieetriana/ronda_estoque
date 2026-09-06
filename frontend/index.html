@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel de Estoque</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Painel de Estoque</h1>
+    <button id="btnAtualizar">Atualizar</button>
+  </header>
+
+  <p id="statusCarregamento">Carregando dados...</p>
+
+  <table id="tabelaEstoque">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Unidade</th>
+        <th>Quantidade Atual</th>
+        <th>Quantidade Mínima</th>
+        <th>Última Atualização</th>
+      </tr>
+    </thead>
+    <tbody id="corpoTabela"></tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
