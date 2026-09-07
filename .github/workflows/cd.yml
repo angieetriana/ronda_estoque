@@ -1,0 +1,26 @@
+name: Continuous Delivery
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  checks: write
+  contents: write
+
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v7
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: projeto.zip
+          path: README.md
+
+     
