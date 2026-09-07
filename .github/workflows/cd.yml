@@ -23,4 +23,16 @@ jobs:
           name: projeto.zip
           path: README.md
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: deliver
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: projeto.zip
+      - name: Display structure of the artifact
+        run: ls -R
+
      
