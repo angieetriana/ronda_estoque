@@ -10,6 +10,45 @@ permissions:
   contents: write
 
 jobs:
+  testes-unitarios:
+    name: Testes unitários
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Rodar testes unitários
+        run: npm run test:unit
+
+  testes-integracao:
+    name: Testes de integração
+    runs-on: ubuntu-latest
+    needs: testes-unitarios
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Rodar testes de integração
+        run: npm run test:integration
+
   run-linters:
     name: Run linters
     runs-on: ubuntu-latest
