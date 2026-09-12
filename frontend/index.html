@@ -2,29 +2,49 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Painel de Estoque</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Painel de Estoque</h1>
-    <button id="btnAtualizar">Atualizar</button> 
-  </header>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Painel de Estoque</h1>
+        <p class="subtitulo">Controle em tempo real do estoque hospitalar</p>
+      </div>
+      <button id="btnAtualizar">↻ Atualizar</button>
+    </header>
 
-  <p id="statusCarregamento">Carregando dados...</p>
+    <section class="resumo">
+      <div class="card-resumo">
+        <span class="card-numero" id="totalItens">-</span>
+        <span class="card-label">Itens cadastrados</span>
+      </div>
+      <div class="card-resumo card-alerta">
+        <span class="card-numero" id="totalAlerta">-</span>
+        <span class="card-label">Em estoque baixo</span>
+      </div>
+    </section>
 
-  <table id="tabelaEstoque">
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Unidade</th>
-        <th>Quantidade Atual</th>
-        <th>Quantidade Mínima</th>
-        <th>Última Atualização</th>
-      </tr>
-    </thead>
-    <tbody id="corpoTabela"></tbody>
-  </table>
+    <p id="statusCarregamento">Carregando dados...</p>
+
+    <div class="tabela-wrapper">
+      <table id="tabelaEstoque">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Unidade</th>
+            <th>Qtd. Atual</th>
+            <th>Qtd. Mínima</th>
+            <th>Última Atualização</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="corpoTabela"></tbody>
+      </table>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
