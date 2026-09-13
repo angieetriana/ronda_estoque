@@ -13,39 +13,29 @@ async function carregarEstoque() {
     const resposta = await fetch(URL_API);
     const estoque = await resposta.json();
 
-    let totalAlerta = 0;
-
     estoque.forEach(item => {
       const linha = document.createElement("tr");
+      const baixo = estoqueEstaBaixo(item);
 
-      const estoqueBaixo = item.Quantidade_Atual <= item.Quantidade_Minima;
-      if (estoqueBaixo) {
+      if (baixo) {
         linha.classList.add("estoque-baixo");
-        totalAlerta++;
       }
-
-      const dataFormatada = item.Ultima_Atualizacao
-        ? new Date(item.Ultima_Atualizacao).toLocaleString("pt-BR")
-        : "-";
-
-      const badge = estoqueBaixo
-        ? `<span class="badge badge-alerta">Baixo</span>`
-        : `<span class="badge badge-ok">OK</span>`;
 
       linha.innerHTML = `
         <td>${item.Item}</td>
         <td>${item.Unidade_Medida}</td>
         <td>${item.Quantidade_Atual}</td>
         <td>${item.Quantidade_Minima}</td>
-        <td>${dataFormatada}</td>
-        <td>${badge}</td>
+        <td>${formatarData(item.Ultima_Atualizacao)}</td>
+        <td>${gerarBadgeHtml(baixo)}</td>
       `;
 
       corpoTabela.appendChild(linha);
     });
 
-    totalItensEl.textContent = estoque.length;
-    totalAlertaEl.textContent = totalAlerta;
+    const resumo = calcularResumo(estoque);
+    totalItensEl.textContent = resumo.totalItens;
+    totalAlertaEl.textContent = resumo.totalAlerta;
 
     statusEl.textContent = `Última consulta: ${new Date().toLocaleTimeString("pt-BR")}`;
   } catch (erro) {
