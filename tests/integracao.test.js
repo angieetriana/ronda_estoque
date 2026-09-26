@@ -16,9 +16,9 @@ test("testCarregarEstoqueComSucesso", async () => {
     <div id="listaItens"></div>
     <button id="btnAtualizar"></button>
     <div class="abas">
-      <button class="aba aba-ativa" data-filtro="todos"></button>
-      <button class="aba" data-filtro="baixo"></button>
-      <button class="aba" data-filtro="ok"></button>
+      <button class="aba aba-ativa" data-filtro="todos"><span id="contagemTodos"></span></button>
+      <button class="aba" data-filtro="baixo"><span id="contagemBaixo"></span></button>
+      <button class="aba" data-filtro="ok"><span id="contagemOk"></span></button>
     </div>
   `;
 
@@ -44,6 +44,7 @@ test("testCarregarEstoqueComSucesso", async () => {
   expect(document.getElementById("totalItens").textContent).toBe("2");
   expect(document.getElementById("totalAlerta").textContent).toBe("1");
   expect(document.getElementById("percentualOk").textContent).toBe("50%");
+  expect(document.getElementById("contagemBaixo").textContent).toBe("(1)");
   expect(cards[0].classList.contains("card-item-alerta")).toBe(true);
 });
 
@@ -60,9 +61,9 @@ test("testCarregarEstoqueComErro", async () => {
     <div id="listaItens"></div>
     <button id="btnAtualizar"></button>
     <div class="abas">
-      <button class="aba aba-ativa" data-filtro="todos"></button>
-      <button class="aba" data-filtro="baixo"></button>
-      <button class="aba" data-filtro="ok"></button>
+      <button class="aba aba-ativa" data-filtro="todos"><span id="contagemTodos"></span></button>
+      <button class="aba" data-filtro="baixo"><span id="contagemBaixo"></span></button>
+      <button class="aba" data-filtro="ok"><span id="contagemOk"></span></button>
     </div>
   `;
 
@@ -92,9 +93,9 @@ test("testBotaoAtualizarRecarregaDados", async () => {
     <div id="listaItens"></div>
     <button id="btnAtualizar"></button>
     <div class="abas">
-      <button class="aba aba-ativa" data-filtro="todos"></button>
-      <button class="aba" data-filtro="baixo"></button>
-      <button class="aba" data-filtro="ok"></button>
+      <button class="aba aba-ativa" data-filtro="todos"><span id="contagemTodos"></span></button>
+      <button class="aba" data-filtro="baixo"><span id="contagemBaixo"></span></button>
+      <button class="aba" data-filtro="ok"><span id="contagemOk"></span></button>
     </div>
   `;
 
@@ -129,9 +130,9 @@ test("testFiltroDeAbasExibeSomenteItensDoFiltro", async () => {
     <div id="listaItens"></div>
     <button id="btnAtualizar"></button>
     <div class="abas">
-      <button class="aba aba-ativa" data-filtro="todos"></button>
-      <button class="aba" data-filtro="baixo"></button>
-      <button class="aba" data-filtro="ok"></button>
+      <button class="aba aba-ativa" data-filtro="todos"><span id="contagemTodos"></span></button>
+      <button class="aba" data-filtro="baixo"><span id="contagemBaixo"></span></button>
+      <button class="aba" data-filtro="ok"><span id="contagemOk"></span></button>
     </div>
   `;
 
@@ -147,6 +148,9 @@ test("testFiltroDeAbasExibeSomenteItensDoFiltro", async () => {
   require("../frontend/script.js");
 
   await new Promise(resolve => setTimeout(resolve, 0));
+
+  // O jsdom não implementa scrollIntoView, então simulamos a função
+  Element.prototype.scrollIntoView = jest.fn();
 
   const abaBaixo = document.querySelector('[data-filtro="baixo"]');
   abaBaixo.click();
@@ -170,9 +174,9 @@ test("testCardAlertaExpandeEMostraNomesDosItensBaixos", async () => {
     <div id="listaItens"></div>
     <button id="btnAtualizar"></button>
     <div class="abas">
-      <button class="aba aba-ativa" data-filtro="todos"></button>
-      <button class="aba" data-filtro="baixo"></button>
-      <button class="aba" data-filtro="ok"></button>
+      <button class="aba aba-ativa" data-filtro="todos"><span id="contagemTodos"></span></button>
+      <button class="aba" data-filtro="baixo"><span id="contagemBaixo"></span></button>
+      <button class="aba" data-filtro="ok"><span id="contagemOk"></span></button>
     </div>
   `;
 

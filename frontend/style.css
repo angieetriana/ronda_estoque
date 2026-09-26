@@ -29,7 +29,7 @@ body {
 .topo {
   background-color: var(--verde-escuro);
   color: var(--branco);
-  padding: 1.5rem 1.25rem 1rem;
+  padding: 1.5rem max(1.25rem, calc((100% - 1100px) / 2)) 1rem;
   border-radius: 0 0 20px 20px;
 }
 
@@ -112,23 +112,13 @@ body {
   cursor: pointer;
 }
 
-.icone-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background-color: var(--verde-medio);
-  color: var(--branco);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.9rem;
+#btnAtualizar:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 
 .conteudo {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 1.5rem 1.25rem 3rem;
+  padding: 1.5rem max(1.25rem, calc((100% - 1100px) / 2)) 3rem;
 }
 
 .conteudo h2 {
@@ -169,9 +159,10 @@ body {
 }
 
 .cards-resumo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
   margin-bottom: 2rem;
 }
 
@@ -243,9 +234,10 @@ body {
 }
 
 .lista-itens {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  scroll-margin-top: 4rem;
 }
 
 .card-item {
@@ -307,8 +299,21 @@ body {
   color: var(--alerta-texto);
 }
 
-@media (max-width: 400px) {
-  .conteudo {
-    padding: 1.25rem 1rem 2.5rem;
+@media (max-width: 600px) {
+  .cards-resumo {
+    gap: 0.5rem;
+  }
+
+  .card-kpi {
+    padding: 0.75rem;
+  }
+
+  .kpi-label {
+    font-size: 0.6rem;
+  }
+
+  .kpi-valor {
+    font-size: 1.3rem;
   }
 }
+

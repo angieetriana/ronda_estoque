@@ -11,8 +11,12 @@ async function carregarEstoque() {
   const totalAlertaEl = document.getElementById("totalAlerta");
   const percentualOkEl = document.getElementById("percentualOk");
 
+  const botaoAtualizar = document.getElementById("btnAtualizar");
+
   statusEl.textContent = "Carregando dados...";
   bannerEl.hidden = true;
+  botaoAtualizar.disabled = true;
+  botaoAtualizar.textContent = "Atualizando...";
 
   try {
     const resposta = await fetch(URL_API);
@@ -30,6 +34,10 @@ async function carregarEstoque() {
       : 0;
     percentualOkEl.textContent = `${percentual}%`;
 
+    document.getElementById("contagemTodos").textContent = `(${resumo.totalItens})`;
+    document.getElementById("contagemBaixo").textContent = `(${resumo.totalAlerta})`;
+    document.getElementById("contagemOk").textContent = `(${totalOk})`;
+
     renderizarLista(estoque, filtroAtivo);
     renderizarNomesAlerta(estoque);
 
@@ -40,6 +48,9 @@ async function carregarEstoque() {
   } catch (erro) {
     statusEl.textContent = "Erro ao carregar dados do estoque.";
     console.error(erro);
+  } finally {
+    botaoAtualizar.disabled = false;
+    botaoAtualizar.textContent = "↻ Atualizar";
   }
 }
 
@@ -103,6 +114,7 @@ document.querySelectorAll(".aba").forEach(botao => {
     botao.classList.add("aba-ativa");
     filtroAtivo = botao.dataset.filtro;
     renderizarLista(ultimoEstoqueCarregado, filtroAtivo);
+    document.getElementById("listaItens").scrollIntoView({ behavior: "smooth", block: "start" });
   });
 });
 
