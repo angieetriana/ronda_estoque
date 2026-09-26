@@ -6,33 +6,39 @@ on:
       - main
 
 permissions:
-  checks: write
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  deliver:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v7
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Empacotar o painel para publicação
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: projeto.zip
-          path: README.md
+          path: frontend
 
   deploy:
     runs-on: ubuntu-latest
-    needs: deliver
+    needs: build
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: projeto.zip
-      - name: Display structure of the artifact
-        run: ls -R
-
-     
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

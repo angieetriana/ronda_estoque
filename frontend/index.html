@@ -7,44 +7,66 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
+  <header class="topo">
+    <div class="topo-titulo">
+      <div class="logo">🏥</div>
       <div>
         <h1>Painel de Estoque</h1>
         <p class="subtitulo">Controle em tempo real do estoque hospitalar</p>
       </div>
-      <button id="btnAtualizar">↻ Atualizar</button>
-    </header>
+    </div>
 
-    <section class="resumo">
-      <div class="card-resumo">
-        <span class="card-numero" id="totalItens">-</span>
-        <span class="card-label">Itens cadastrados</span>
+    <div class="abas">
+      <button class="aba aba-ativa" data-filtro="todos">Todos</button>
+      <button class="aba" data-filtro="baixo">Estoque baixo</button>
+      <button class="aba" data-filtro="ok">Em dia</button>
+    </div>
+
+    <p class="meta-atualizacao" id="statusCarregamento">Carregando dados...</p>
+
+    <div class="acoes">
+      <button id="btnAtualizar">↻ Atualizar</button>
+      <span class="icone-avatar" title="Equipe de nutrição">N</span>
+    </div>
+  </header>
+
+  <main class="conteudo">
+    <section class="secao-resumo">
+      <h2>Resumo do estoque</h2>
+      <p class="secao-descricao">Indicadores gerais do estoque cadastrado</p>
+
+      <div class="banner-status" id="bannerStatus" hidden>
+        <span class="banner-check">✓</span>
+        <span id="bannerTexto"></span>
       </div>
-      <div class="card-resumo card-alerta">
-        <span class="card-numero" id="totalAlerta">-</span>
-        <span class="card-label">Em estoque baixo</span>
+
+      <div class="cards-resumo">
+        <div class="card-kpi">
+          <span class="kpi-label">Itens cadastrados</span>
+          <span class="kpi-valor" id="totalItens">-</span>
+        </div>
+        <div class="card-kpi card-kpi-expansivel" id="cardAlerta">
+          <div class="kpi-cabecalho">
+            <span class="kpi-label">Em estoque baixo</span>
+            <span class="seta">▾</span>
+          </div>
+          <span class="kpi-valor kpi-alerta" id="totalAlerta">-</span>
+          <ul class="lista-alerta-nomes" id="listaAlertaNomes" hidden></ul>
+        </div>
+        <div class="card-kpi">
+          <span class="kpi-label">Estoque em dia</span>
+          <span class="kpi-valor kpi-positivo" id="percentualOk">-</span>
+        </div>
       </div>
     </section>
 
-    <p id="statusCarregamento">Carregando dados...</p>
+    <section class="secao-lista">
+      <h2>Itens do estoque</h2>
+      <p class="secao-descricao">Detalhamento por item, com destaque para os que precisam de reposição</p>
 
-    <div class="tabela-wrapper">
-      <table id="tabelaEstoque">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Unidade</th>
-            <th>Qtd. Atual</th>
-            <th>Qtd. Mínima</th>
-            <th>Última Atualização</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="corpoTabela"></tbody>
-      </table>
-    </div>
-  </div>
+      <div class="lista-itens" id="listaItens"></div>
+    </section>
+  </main>
 
   <script src="logica.js"></script>
   <script src="script.js"></script>
